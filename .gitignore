@@ -139,5 +139,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-**/**.pth # PyTorch
+trainings/
+**/*.pth # PyTorch
 **/**.zarr # zarr data
