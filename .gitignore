@@ -140,5 +140,8 @@ dmypy.json
 .pyre/
 
 trainings/
+figures/
 **/*.pth # PyTorch
 **/**.zarr # zarr data
+
+
