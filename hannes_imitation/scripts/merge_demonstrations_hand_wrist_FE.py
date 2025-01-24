@@ -9,7 +9,7 @@ import numpy as np
 from tqdm import tqdm
 
 # load configuration file
-config_path = '/home/calessi-iit.local/Projects/hannes-imitation/hannes_imitation/config/data/config_preliminary_hand.yaml'
+config_path = '/home/calessi-iit.local/Projects/hannes-imitation/hannes_imitation/config/data/config_preliminary_hand_wrist_FE.yaml'
 config = load_configuration(config_path)
 
 # extract configuration parameters
@@ -38,6 +38,13 @@ for demonstration_name in tqdm(demonstration_names['retained']):
     # open zarr store of episode
     store = zarr.open(demonstration_dir + demonstration_name)
 
+    # extract action and observations needed
+    ref_move_hand = store['references']['hand'][:]
+    ref_move_wrist_FE = store['references']['wrist_FE'][:]
+    mes_hand = store['joints']['hand']['position'][:]
+    mes_wrist_FE = store['joints']['wrist_FE']['position'][:]
+    camera = store['in-hand_camera_0']['frames'][:]
+
     # get desired indeces for temporal alignment for hand time stamps and video time stamps
     hand_times = store['time'][:]
     camera_times = store['in-hand_camera_0']['time'][:]
@@ -45,9 +52,12 @@ for demonstration_name in tqdm(demonstration_names['retained']):
                               'camera': camera_times}
     indeces_to_select = index_alignment(x_collection=time_stamps_collection)
 
-    # extract action and observations needed, with temporal alignment
-    ref_move_hand = store['references']['hand'][indeces_to_select['hand']] 
-    camera = store['in-hand_camera_0']['frames'][indeces_to_select['camera']]
+    # extract desired indeces for temporal alignment
+    ref_move_hand = ref_move_hand[indeces_to_select['hand']]
+    ref_move_wrist_FE = ref_move_wrist_FE[indeces_to_select['hand']]
+    mes_hand = mes_hand[indeces_to_select['hand']]
+    mes_wrist_FE = mes_wrist_FE[indeces_to_select['hand']]
+    camera = camera[indeces_to_select['camera']]
     episode_lenth = len(indeces_to_select['hand'])
     
     # downsize all frames
@@ -55,6 +65,9 @@ for demonstration_name in tqdm(demonstration_names['retained']):
 
     # add to merged dataset
     merged_data['data']['ref_move_hand'].extend(ref_move_hand.reshape(-1, 1)) # reshape ref_move_hand (T,) -> (T,1)
+    merged_data['data']['ref_move_wrist_FE'].extend(ref_move_wrist_FE.reshape(-1, 1))
+    merged_data['data']['mes_hand'].extend(mes_hand.reshape(-1, 1))
+    merged_data['data']['mes_wrist_FE'].extend(mes_wrist_FE.reshape(-1, 1))
     merged_data['data']['image_in_hand'].extend(camera)
     merged_data['meta']['episode_ends'].append(episode_lenth)
 

@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 
-FONT_SIZE   = 16
-TICK_SIZE   = 16
+FONT_SIZE   = 12
+TICK_SIZE   = 12
 LEGEND_SIZE = 12
-AXES_SIZE   = 16
+AXES_SIZE   = 12
 
 # change font sizes
 plt.rc('font',   size=FONT_SIZE)           # controls default text sizes
