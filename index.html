@@ -52,7 +52,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">HannesImitation: Grasping with the Hannes Prosthetic Hand via Imitation Learning</h1>
+            <h2 class="title is-1 publication-title">HannesImitation: Grasping with the Hannes Prosthetic Hand via Imitation Learning</h2>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
@@ -62,13 +62,13 @@
                 <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Federico Vasile</a>,
               </span>
               <span class="author-block">
-                <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Federico Ceola</a>
+                <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Federico Ceola</a>,
               </span>
               <span class="author-block">
-                <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Giulia Pasquale</a>
+                <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Giulia Pasquale</a>,
               </span>
               <span class="author-block">
-                <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Nicolò Boccardo</a>
+                <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Nicolò Boccardo</a>,
               </span>
               <span class="author-block">
                 <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Lorenzo Natale</a>
@@ -157,8 +157,17 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Most control techniques for prosthetic grasping focus on dexterous fingers control, but overlook the wrist motion. This forces the user to perform compensatory movements with the elbow, shoulder and hip to adapt the wrist for grasping. 
-We propose a computer vision-based system that leverages the collaboration between the user and an automatic system in a shared autonomy framework, to perform continuous control of the wrist degrees of freedom in a prosthetic arm, promoting a more natural approach-to-grasp motion. Our pipeline allows to seamlessly control the prosthetic wrist to follow the target object and finally orient it for grasping according to the user intent. We assess the effectiveness of each system component through quantitative analysis and finally deploy our method on the Hannes prosthetic arm.
+          Recent advancements in the control of prosthetic hands have focused on increasing autonomy through the use of cameras and other sensory inputs. 
+            These systems aim to reduce the cognitive load on the user by automatically controlling certain degrees of freedom. 
+            In robotics, imitation learning has emerged as a promising approach for learning grasping and complex manipulation tasks while simplifying data collection. 
+            Its application to the control of prosthetic hands remains, however, largely unexplored. 
+            Bridging this gap could enhance dexterity restoration and enable prosthetic devices to operate in more unconstrained scenarios, where tasks are learned from demonstrations rather than relying on manually annotated sequences. 
+            To this end, we present \textit{HannesImitationPolicy}, the application of an imitation learning-based method to control the Hannes prosthetic hand, enabling object grasping in unstructured environments. 
+            Additionally, we introduce the \textit{HannesImitationDataset} comprising grasping demonstrations in table, shelf, and human-to-prosthesis handover scenarios. 
+            These data are used to train a policy and deploy it on the prosthetic hand to predict the wrist orientation and hand closure for grasping. 
+            Experimental evaluation demonstrates successful grasps across diverse objects and conditions. 
+            Finally, the policy outperforms a segmentation-based visual-servo controller in unstructured scenarios. 
+            Additional material is provided on our project page: \href{https://hsp-iit.github.io/HannesImitation/}{https://hsp-iit.github.io/HannesImitation}.  
           </p>
         </div>
       </div>
