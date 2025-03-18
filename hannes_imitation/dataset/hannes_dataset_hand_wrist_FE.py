@@ -9,10 +9,12 @@ from typing import Dict
 import copy
 import torch
 import numpy as np
+import zarr
 
 class HannesImageDatasetWrist(BaseImageDataset):
-    def __init__(self, zarr_path, keys, horizon=1, pad_before=0, pad_after=0, seed=42, val_ratio=0.0, max_train_episodes=None):
+    def __init__(self, zarr_path, keys, obs_horizon=2, horizon=1, pad_before=0, pad_after=0, seed=42, val_ratio=0.0, max_train_episodes=None):
         super().__init__()
+        self.obs_horizon = obs_horizon
 
         # Create the replay buffer
         replay_buffer = ReplayBuffer.copy_from_path(zarr_path, keys=keys)#['img', 'state', 'action'])
@@ -32,6 +34,7 @@ class HannesImageDatasetWrist(BaseImageDataset):
         self.horizon = horizon
         self.pad_before = pad_before
         self.pad_after = pad_after
+        self.labels = zarr.open(zarr_path, 'r').attrs['label'][:]
 
     # --------------------------------------------------------------
     # ------- Methods inherited by BaseImageDataset ----------------
@@ -67,8 +70,9 @@ class HannesImageDatasetWrist(BaseImageDataset):
         """
         ref_move_hand = self.replay_buffer['ref_move_hand']
         ref_move_wrist_FE = self.replay_buffer['ref_move_wrist_FE']
+        ref_move_wrist_PS = self.replay_buffer['ref_move_wrist_PS']
 
-        action = np.concatenate((ref_move_hand, ref_move_wrist_FE), axis=1)
+        action = np.concatenate((ref_move_hand, ref_move_wrist_FE, ref_move_wrist_PS), axis=1)
 
         data = {
             'mes_hand': self.replay_buffer['mes_hand'],
@@ -125,7 +129,8 @@ class HannesImageDatasetWrist(BaseImageDataset):
         """
         # bring channel axis in the first position (horizon, H, W, C) -> (horizon, C, H, W)
         # also scale images from 0-255 to 0-1
-        image = np.moveaxis(sample['image_in_hand'], source=-1, destination=1)
+        image = sample['image_in_hand']
+        image = np.moveaxis(image, source=-1, destination=1)
         image = image.astype(np.float32) / 255.0
 
         mes_hand = sample['mes_hand'].astype(np.float32)
@@ -134,14 +139,16 @@ class HannesImageDatasetWrist(BaseImageDataset):
         # unsqueeze dimension of ref_move_hand action (horizon,) -> (horizon, 1)
         ref_move_hand = sample['ref_move_hand'].astype(np.float32)
         ref_move_wrist_FE = sample['ref_move_wrist_FE'].astype(np.float32)
-        action = np.concatenate((ref_move_hand, ref_move_wrist_FE), axis=1)
+        ref_move_wrist_PS = sample['ref_move_wrist_PS'].astype(np.float32)
+
+        action = np.concatenate((ref_move_hand, ref_move_wrist_FE, ref_move_wrist_PS), axis=1)
 
 
         data = {
             'obs': {
-                'image_in_hand': image, # T, 3, H, W NOTE: images were (96,96) in PushT
-                'mes_hand': mes_hand,
-                'mes_wrist_FE': mes_wrist_FE,                
+                'image_in_hand': image[:self.obs_horizon], # T, 3, H, W NOTE: images were (96,96) in PushT
+                'mes_hand': mes_hand[:self.obs_horizon],
+                'mes_wrist_FE': mes_wrist_FE[:self.obs_horizon],                
             },
             'action': action # T, 2
         }
