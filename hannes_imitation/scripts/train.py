@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 import torch
+import time
 
 import sys
 sys.path.append('/home/calessi-iit.local/Projects/hannes-imitation')
@@ -24,35 +25,31 @@ from hannes_imitation.common import plot_utils
 # diffusers import
 from diffusers.schedulers.scheduling_ddpm import DDPMScheduler
 
-sys.path
-
-
-#merged_dir = '/home/calessi-iit.local/Projects/hannes-imitation/data/preliminary/'
-merged_dir = '/home/calessi-iit.local/Projects/hannes-imitation/data/mustard_hand_wrist_FE/'
-merged_name = 'merged.zarr'
-#merged_name = 'merged_hand_wrist_FE.zarr'
-zarr_path = os.path.join(merged_dir, merged_name)
-#keys = ['image_in_hand', 'ref_move_hand']
-keys = ['image_in_hand', 'ref_move_hand', 'ref_move_wrist_FE', 'mes_hand', 'mes_wrist_FE']
-val_ratio = 0.1
+#zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged-grasp-ycb-table.zarr'
+#zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged_collections_1_4.zarr'
+#zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged_collections_1_3_4_6.zarr'
+#zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged_collections_1-8.zarr'
+zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged_1_4_7.zarr' # NOTE: IROS 2025
+keys = ['image_in_hand', 'ref_move_hand', 'ref_move_wrist_FE', 'ref_move_wrist_PS', 'mes_hand', 'mes_wrist_FE']
+val_ratio = 0.2 #0.25
 seed = 72
 max_train_episodes = None
-horizon = 8 #16 # prediction horizon
-observation_horizon = 2
-action_horizon = 4 # 8
+horizon = 8 # default 16 # prediction horizon
+observation_horizon = 2 # default 2
+action_horizon = 4 # default 8
 pad_before = observation_horizon - 1
 pad_after = action_horizon - 1
 
 # training and validation dataset
 #train_dataset = HannesImageDataset(zarr_path, keys, horizon=horizon, pad_before=pad_before, pad_after=pad_after, seed=seed, val_ratio=val_ratio, max_train_episodes=None)
-train_dataset = HannesImageDatasetWrist(zarr_path, keys, horizon=horizon, pad_before=pad_before, pad_after=pad_after, seed=seed, val_ratio=val_ratio, max_train_episodes=None)
+train_dataset = HannesImageDatasetWrist(zarr_path, keys, obs_horizon=observation_horizon, horizon=horizon, pad_before=pad_before, pad_after=pad_after, seed=seed, val_ratio=val_ratio, max_train_episodes=None)
 validation_dataset = train_dataset.get_validation_dataset()
 
 # get normalizer
 normalizer = train_dataset.get_normalizer()
 
 # create dataloaders for training and validation
-batch_size = 64
+batch_size = 128 # default 64 #128 per prima iros2025 
 num_workers = 4
 shuffle = True
 
@@ -61,16 +58,13 @@ shuffle = True
 tr_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=True, pin_memory=True, persistent_workers=True)
 vl_dataloader = torch.utils.data.DataLoader(validation_dataset, batch_size=batch_size, num_workers=num_workers)
 
-
 # visualize data in batch
-# TODO discard unused observations earlier
-print("=======================")
+print("======== data loader ===============")
 batch = next(iter(tr_dataloader))
-
+print("N. batches", len(tr_dataloader))
 print('Observations:')
 for key, obs_value in batch['obs'].items():
     print(key, obs_value.shape, obs_value.dtype)
-    
 print("Action:")
 print(batch['action'].shape, batch['action'].dtype)
 print("=======================")
@@ -86,10 +80,6 @@ shape_meta['obs']['image_in_hand'] = dict(shape=(C, H, W), type='rgb')
 shape_meta['obs']['mes_hand'] = dict(shape=[1], type='low_dim')
 shape_meta['obs']['mes_wrist_FE'] = dict(shape=[1], type='low_dim')
 shape_meta['action'] = dict(shape=[action_dim])
-
-# NOTE if you want to include more observations
-#shape_meta['obs']['image_in_head'] = dict(shape=(C, H, W), type='rgb')
-#shape_meta['obs']['hand_info'] = dict(shape=[6], type='low_dim')
 
 # Create observation encoder
 rgb_model = get_resnet('resnet18') # dict()
@@ -116,13 +106,11 @@ _ = observation_encoder.eval()
 # Create noise scheduler
 # for this demo, we use DDPMScheduler with 100 diffusion iterations
 # NOTE: the choice of beta schedule has big impact on performance. We found squared cosine works the best
-num_diffusion_iters = 50#25#50 #100 
-
+num_diffusion_iters = 10 # default 100 
 noise_scheduler = DDPMScheduler(num_train_timesteps=num_diffusion_iters,
                                 beta_schedule='squaredcos_cap_v2',
                                 clip_sample=True, # clip output to [-1,1] to improve stability
                                 prediction_type='epsilon') # the network predicts noise (instead of denoised action)
-
 
 device = torch.device('cuda')
 
@@ -142,14 +130,16 @@ policy = DiffusionUnetImagePolicy(shape_meta=shape_meta,
                                   n_action_steps=action_horizon,
                                   n_obs_steps=observation_horizon,
                                   diffusion_step_embed_dim=32,#64, #128,#256 default,
-                                  down_dims=[16, 32, 64]) #[32, 64, 128])#(256,512,1024)) default
-
+                                  down_dims=[32, 64], # [16, 32, 64])#(256,512,1024)) default
+                                  kernel_size=3, # default 5
+                                  n_groups=8, # default 8
+                                  cond_predict_scale=True) # default True 
 
 # Create optimizer and learning rate scheduler
 # Standard ADAM optimizer (NOTE that EMA parametesr are not optimized)
-optimizer = torch.optim.AdamW(params=policy.parameters(), lr=1e-4, weight_decay=1e-4) # first time wrist weight_decay=1e-5, default weigth_decay=1e-6
+optimizer = torch.optim.AdamW(params=policy.parameters(), lr=1e-4, weight_decay=2e-4) # default weigth_decay=1e-6
 
-num_epochs = 200 #100 # 100
+num_epochs = 100
 
 # Cosine LR schedule with linear warmup
 lr_scheduler = get_scheduler(
@@ -167,11 +157,14 @@ policy_trainer = TrainerDiffusionPolicy(policy=policy,
                                         learning_rate_scheduler=lr_scheduler)
 history = policy_trainer.run(num_epochs=num_epochs, device=device)
 
+local_time = time.localtime()
+timestamp = '_%d_%d_%d-%d_%d_%d' % (local_time.tm_year, local_time.tm_mon, local_time.tm_mday, local_time.tm_hour, local_time.tm_min, local_time.tm_sec)
 
 # save policy and training results
 policy_dir = '/home/calessi-iit.local/Projects/hannes-imitation/trainings/'
 #policy_name = 'preliminary_policy.pth'
-policy_name = 'preliminary_policy_wrist_FE-tmp.pth'
+#policy_name = 'preliminary_policy_wrist_FE-tmp.pth'
+policy_name = 'policy_1_4_7' + timestamp + '.pth'
 policy_path = os.path.join(policy_dir, policy_name)
 
 training_dict = {'policy': policy.to('cpu'),
