@@ -143,5 +143,6 @@ trainings/
 figures/
 **/*.pth # PyTorch
 **/**.zarr # zarr data
-
+paper/
+recordings/
 
