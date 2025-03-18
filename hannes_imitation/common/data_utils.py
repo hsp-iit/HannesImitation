@@ -86,7 +86,7 @@ def resize_image(img, scaling_factor):
     return new_img
 
 
-def store_merged_data_to_zarr(merged_data, path):
+def store_merged_data_to_zarr(merged_data, attrs, path):
     """
     store dictionary containing all episodes into a store. It assumes the dictionary is structed as
     
@@ -111,5 +111,8 @@ def store_merged_data_to_zarr(merged_data, path):
 
     # store episode ends
     store['meta']['episode_ends'] = merged_data['meta']['episode_ends']
+
+    # store attrs
+    store.attrs['label'] = attrs
 
     return store
