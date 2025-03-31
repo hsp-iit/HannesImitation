@@ -48,7 +48,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <style>
         body { font-family: Arial, sans-serif; }
-        .swiper { width: 80%; height: 400px; }
+        .swiper { width: 80%; 
+                 height: 400px;
+                 margin: 20px auto; /* Adds space around the carousels */
+                }
         .swiper-slide { display: flex; justify-content: center; align-items: center; }
         video { width: 100%; height: 100%; border-radius: 10px; }
        .carousel-title {
@@ -274,23 +277,9 @@
       </table>
     </div>
 
-<!--<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Carousel</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .swiper { width: 80%; height: 400px; }
-        .swiper-slide { display: flex; justify-content: center; align-items: center; }
-        video { width: 100%; height: 100%; border-radius: 10px; }
-    </style>
-</head>
-<body>-->
-
+    <!-- Carousel Table Grasp -->
     <div class="carousel-title">Sample <i>Table Grasp</i> Demonstrations</div>
-    
-    <div class="swiper mySwiper">
+    <div class="swiper mySwiper1">
         <div class="swiper-wrapper">
             <!-- 15 Video Slides -->
             <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/1_table_grasp/1.mp4" type="video/mp4"></video></div>
@@ -315,15 +304,57 @@
         <div class="swiper-pagination"></div>
     </div>
 
+     <!-- Carousel Shelf Grasp -->
+    <div class="carousel-title">Sample <i>Shelf Grasp</i> Demonstrations</div>
+    <div class="swiper mySwiper2">
+        <div class="swiper-wrapper">
+            <!-- 15 Video Slides -->
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/1.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/2.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/3.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/4.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/5.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/6.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/7.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/8.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/9.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/10.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/11.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/12.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/13.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/14.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="static/videos/data_exploration/4_shelf_grasp/15.mp4" type="video/mp4"></video></div>
+        </div>
+        <!-- Navigation Buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 1,
-            spaceBetween: 10,
-            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-            pagination: { el: ".swiper-pagination", clickable: true },
-        });
+      var swiper1 = new Swiper(".mySwiper1", {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+          pagination: { el: ".swiper-pagination", clickable: true },
+      });
+  
+      var swiper2 = new Swiper(".mySwiper2", {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+          pagination: { el: ".swiper-pagination", clickable: true },
+      });
+  
+      var swiper3 = new Swiper(".mySwiper3", {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+          pagination: { el: ".swiper-pagination", clickable: true },
+      });
     </script>
+
 <!--</body> -->
     
     
