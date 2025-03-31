@@ -257,6 +257,56 @@
         </tbody>
       </table>
     </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Carousel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .swiper { width: 80%; height: 400px; }
+        .swiper-slide { display: flex; justify-content: center; align-items: center; }
+        video { width: 100%; height: 100%; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <!-- 15 Video Slides -->
+            <div class="swiper-slide"><video controls><source src="video1.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video2.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video3.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video4.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video5.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video6.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video7.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video8.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video9.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video10.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video11.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video12.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video13.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video14.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video controls><source src="video15.mp4" type="video/mp4"></video></div>
+        </div>
+        <!-- Navigation Buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            pagination: { el: ".swiper-pagination", clickable: true },
+        });
+    </script>
+</body>
+    
     
   </div>
 </section>
