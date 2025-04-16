@@ -4,23 +4,29 @@ The learned policy is deployed on the Hannes prosthetic hand, enabling control o
 - _HannesImitationPolicy_: The novel application of Diffusion Policy to control a prosthetic hand equipped with and anthropomorphic wrist.
 - _HannesImitationDataset_: A novel dataset for imitation learning with the Hannes prosthetic hand for grasping on unstructured scenarios.
 
-### Installation
+### 🛠️ Installation
+To set up the environment and dependencies, please follow the installation instructions provided in the Diffusion Policy repository: [https://github.com/real-stanford/diffusion_policy](https://github.com/real-stanford/diffusion_policy).
+
+The _HannesImitation_ project builds on top of that setup.
 
 ### 📚 Learn more
-This article is published in *IEEE Robotics and Automation Letters (RA-L)*: [IEEE Xplore Link](https://ieeexplore.ieee.org/abstract/document/10904302)
+📄 Preprint available on *arXiv*: [https://arxiv.org/abs/your-arxiv-id](https://arxiv.org/abs/your-arxiv-id).
 
 ### 🤝 Citation
 If you found this useful, you could cite the article as follows:
 
 ```bibtex
-@article{pagliarani2025softtex,
-  title={SoftTex: Soft robotic arm with learning-based textile proprioception},
-  author={Pagliarani, Niccol{\`o} and Alessi, Carlo and Arleo, Luca and Campinoti, Giulia and Maselli, Martina and Falotico, Egidio and Cianchetti, Matteo},
-  journal={IEEE Robotics and Automation Letters},
-  year={2025},
-  publisher={IEEE}
+@inproceedings{...,
+  title={HannesImitation: Grasping with the Hannes Prosthetic Hand via Imitation Learning},
+  author={...},
+  booktitle={...},
+  pages={...},
+  year={...},
+  organization={...}
+}
+
 }
 ```
 
 ### 📬 Contacts
-For questions or collaborations regarding Machine Learning-based proprioception, contact [@noobcode](https://github.com/noobcode).
+If you have any questions, please feel free to contact [Carlo Alessi](https://github.com/noobcode).
