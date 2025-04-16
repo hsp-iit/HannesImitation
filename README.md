@@ -29,4 +29,4 @@ If you found this useful, you could cite the article as follows:
 ```
 
 ### 📬 Contacts
-If you have any questions, please feel free to contact [Carlo Alessi](https://github.com/noobcode).
+If you have any questions, please feel free to contact [Carlo Alessi](https://hsp.iit.it/people-details/-/people/carlo-alessi).
