@@ -61,6 +61,22 @@
             margin-top: 30px; /* Adds space above the title */
             margin-bottom: 15px;
         }
+
+      .carousel-row {
+        display: flex;
+        flex-wrap: wrap; /* Allows wrapping on smaller screens */
+        gap: 20px;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 20px 0;
+      }
+      
+      .carousel-block {
+        flex: 1 1 30%;
+        min-width: 300px;
+        max-width: 100%;
+}
+
     </style>
 </head>
 <body>
@@ -277,6 +293,8 @@
       </table>
     </div>
 
+    <div class="carousel-row">
+      
     <!-- Carousel Table Grasp -->
     <div class="carousel-title">Sample <i>Table Grasp</i> Demonstrations</div>
     <div class="swiper mySwiper1">
@@ -357,6 +375,7 @@
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
