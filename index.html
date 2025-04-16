@@ -72,10 +72,10 @@
         gap: 20px;
         justify-content: space-between;
         align-items: flex-start;
-        margin: 0 auto;
-        width: 100%;
-        max-width: none;
-        padding: 20px 0;
+        margin: 0 auto; /* remove any external margin */
+        padding: 0 10px; /* optional padding to ensure spacing */
+        width: 100vw; /* force full width of viewport */
+        max-width: 100vw; /* ensure max width is 100% of viewport */
       }
       
       .carousel-block {
