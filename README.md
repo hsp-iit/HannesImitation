@@ -10,6 +10,10 @@ To set up the environment and dependencies, please follow the installation instr
 
 The _HannesImitation_ project builds on top of that setup.
 
+### 📂 Dataset
+The HannesImitationDataset is available at: [https:...](TODO)
+
+
 ### 📚 Learn more
 📄 Preprint available on *arXiv*: [https://arxiv.org/abs/your-arxiv-id](https://arxiv.org/abs/your-arxiv-id).
 
@@ -24,8 +28,6 @@ If you found this useful, you could cite the article as follows:
   pages={...},
   year={...},
   organization={...}
-}
-
 }
 ```
 
