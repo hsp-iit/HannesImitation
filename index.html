@@ -79,9 +79,10 @@
       }
       
       .carousel-block {
-        flex: 1 1 30%;
+        flex: 1 1 calc(33.33% - 20px); /* Adjusting for gap */
         min-width: 300px;
         max-width: 100%;
+        box-sizing: border-box;
         border: 1px solid red; /* temp */
     }
 
