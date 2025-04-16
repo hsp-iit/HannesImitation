@@ -1,4 +1,5 @@
 # HannesImitation: Grasping with the Hannes Prosthetic Hand via Imitation Learning
+
 _HannesImitation_ is an imitation learning-based approach that trains a single grasping policy across diverse objects and environments. 
 The learned policy is deployed on the Hannes prosthetic hand, enabling control of wrist orientation and hand closure. The main contributions are
 - _HannesImitationPolicy_: The novel application of Diffusion Policy to control a prosthetic hand equipped with and anthropomorphic wrist.
