@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Page</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .swiper { width: 80%; 
+             height: 400px;
+             margin: 20px auto; /* Adds space around the carousels */
+            }
+    .swiper-slide { display: flex; 
+                   justify-content: center; 
+                   align-items: center; }
+
+    video {
+      max-width: 90%;
+      height: auto;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Shelf Grasp</h1>
+  <div class="swiper mySwiper1">
+        <div class="swiper-wrapper">
+            <!-- 15 Video Slides -->
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/1.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/2.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/3.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/4.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/5.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/6.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/7.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/8.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/9.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/10.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/11.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/12.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/13.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/14.mp4" type="video/mp4"></video></div>
+            <div class="swiper-slide"><video autoplay muted playsinline loading="lazy"><source src="static/videos/data_exploration/7_human_to_hannes_handover/15.mp4" type="video/mp4"></video></div>
+        </div>
+        <!-- Navigation Buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      var swiper1 = new Swiper(".mySwiper1", {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+          pagination: { el: ".swiper-pagination", clickable: true },
+      });
+    </script>   
+
+</body>
+</html>
