@@ -59,6 +59,34 @@
             height: 50px; /* adjust size as needed */
           }
 
+        .author-gallery {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 2rem;
+          margin-top: 2rem;
+        }
+        
+        .author {
+          text-align: center;
+        }
+        
+        .author-photo {
+          width: 120px;
+          height: 120px;
+          object-fit: cover;
+          border-radius: 50%;
+          border: 3px solid #3273dc; /* nice blue border */
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-name {
+          margin-top: 0.5rem;
+          font-weight: 500;
+          font-size: 1rem;
+        }
+
+
       
         body { font-family: Arial, sans-serif; }
         .swiper { width: 80%; 
@@ -147,6 +175,28 @@
                 <sup>1</sup>
               </span>
             </div>
+
+            <div class="author-gallery">
+  <div class="author">
+    <a href="https://yourwebsite.com/niccolo" target="_blank">
+      <img src="static/images/niccolo.jpg" alt="Niccolò Pagliarani" class="author-photo">
+    </a>
+    <p class="author-name">Carlo Alessi</p>
+  </div>
+  <div class="author">
+    <a href="https://yourwebsite.com/luca" target="_blank">
+      <img src="static/images/luca.jpg" alt="Luca Arleo" class="author-photo">
+    </a>
+    <p class="author-name">Federico Vasile</p>
+  </div>
+  <div class="author">
+    <a href="https://yourwebsite.com/giulia" target="_blank">
+      <img src="static/images/giulia.jpg" alt="Giulia Campinoti" class="author-photo">
+    </a>
+    <p class="author-name">Federico Ceola</p>
+  </div>
+</div>
+
 
                   <div class="is-size-5 publication-authors">
                     <span class="author-block">
