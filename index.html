@@ -142,7 +142,7 @@
         box-sizing: border-box;
         /*border: 1px solid red; /* temp */
     }
-
+      
       .rounded-image {
       border-radius: 12px;
       height: 120px;         /* Set a fixed height */
@@ -151,8 +151,29 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Optional subtle shadow */
       transition: transform 0.2s ease; /* Optional hover effect */
     }
+
+      .scenario-gallery {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 2rem;
+          margin-top: 2rem;
+        }
+        
+        .scenario {
+          text-align: center;
+        }
+        
+        .scenario-photo {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 10%;
+          border: 2px solid #0073b3; /* nice blue border */
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
     
-    .rounded-image:hover {
+    .scenario-photo:hover {
       transform: scale(1.05); /* Slight zoom on hover */
       cursor: pointer;
     }
@@ -435,14 +456,38 @@
 
     </div>
 
+
+  <!-- Table Grasp -->
+  <div class="scenario-gallery">
+  <div class="scenario">
+    <a href="table_grasp_data.html">
+      <img src="static/images/scenario/table_grasp.jpg" alt="table grasp data" class="scenario-photo">
+    </a>
+    <p class="scenario"><i>Table Grasp</i></p>
+  </div>
+
+    <!-- Shelf Grasp -->
+  <div class="scenario-gallery">
+  <div class="scenario">
+    <a href="table_grasp_data.html">
+      <img src="static/images/scenario/shelf_grasp.jpg" alt="shelf grasp data" class="scenario-photo">
+    </a>
+    <p class="scenario"><i>Shelf Grasp</i></p>
+  </div>
+
+    <!-- Human-to-Hannes Handover -->
+  <div class="scenario-gallery">
+  <div class="scenario">
+    <a href="table_grasp_data.html">
+      <img src="static/images/scenario/human-to-hannes_handover.jpg" alt="human-to-hannes handover data" class="scenario-photo">
+    </a>
+    <p class="scenario"><i>Human-to-Hannes Handover</i></p>
+  </div>
+
     <div class="carousel-row">
       
     <!-- Carousel Table Grasp -->
-    <div class="carousel-block">
-    <div class="carousel-title"><i>Table Grasp</i></div>
-    <a href="table_grasp_data.html">
-    <img src="static/images/scenario/table_grasp.jpg" alt="table grasp data" class="rounded-image">
-    </a>
+    
 
     <div class="swiper mySwiper1">
         <div class="swiper-wrapper">
