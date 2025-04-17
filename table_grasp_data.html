@@ -15,6 +15,14 @@
       background-color: #f4f4f4;
     }
 
+    .swiper { width: 80%; 
+             height: 400px;
+             margin: 20px auto; /* Adds space around the carousels */
+            }
+    .swiper-slide { display: flex; 
+                   justify-content: center; 
+                   align-items: center; }
+
     video {
       max-width: 90%;
       height: auto;
@@ -56,7 +64,16 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
     </div>
-    </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      var swiper1 = new Swiper(".mySwiper1", {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+          pagination: { el: ".swiper-pagination", clickable: true },
+      });
 
 </body>
 </html>
