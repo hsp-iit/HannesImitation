@@ -143,6 +143,21 @@
         /*border: 1px solid red; /* temp */
     }
 
+      .rounded-image {
+      border-radius: 12px;
+      height: 120px;         /* Set a fixed height */
+      width: auto;           /* Keep aspect ratio */
+      object-fit: cover;     /* Crop image nicely if needed */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Optional subtle shadow */
+      transition: transform 0.2s ease; /* Optional hover effect */
+    }
+    
+    .rounded-image:hover {
+      transform: scale(1.05); /* Slight zoom on hover */
+      cursor: pointer;
+    }
+
+
     </style>
 </head>
 <body>
@@ -426,7 +441,7 @@
     <div class="carousel-block">
     <div class="carousel-title"><i>Table Grasp</i></div>
     <a href="table_grasp_data.html">
-    <img src="static/images/logos/hsp-logo.svg" alt="table grasp data">
+    <img src="static/images/scenario/table_grasp.jpg" alt="table grasp data" class="rounded-image">
     </a>
 
     <div class="swiper mySwiper1">
