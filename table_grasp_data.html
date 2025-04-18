@@ -74,17 +74,26 @@
   <!-- Swiper initialization script -->
   <script>
     var swiper1 = new Swiper(".mySwiper1", {
-      slidesPerView: 1, // Number of slides visible at once
-      spaceBetween: 10, // Space between slides in px
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-    });
+                              slidesPerView: 1,
+                              spaceBetween: 10,
+                              navigation: {
+                                nextEl: ".swiper-button-next",
+                                prevEl: ".swiper-button-prev"
+                              },
+                              pagination: {
+                                el: ".swiper-pagination",
+                                clickable: true
+                              },
+                              on: {
+                                slideChange: function () {
+                                  document.querySelectorAll('.swiper-slide video').forEach(video => {
+                                    video.pause();
+                                    video.currentTime = 0; // optional
+                                  });
+                                }
+                              }
+                            });
+
   </script>
 
 </body>
