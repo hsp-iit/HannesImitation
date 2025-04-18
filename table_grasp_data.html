@@ -18,21 +18,25 @@
       background-color: #f4f4f4;
     }
 
-    .swiper { width: 80%; 
-             height: 400px;
-             margin: 20px auto; /* Adds space around the carousels */
-            }
+      .swiper {
+      width: 80%;
+      height: auto;
+      margin: 20px auto; /* Adds space around the carousels */
+    }
+    
     .swiper-slide { display: flex; 
                    justify-content: center; 
                    align-items: center; }
 
     video {
-      max-width: 90%;
-      height: auto;
+      width: 100%;
+      height: auto; /* ensures no cropping */
+      max-height: 100%; /* prevent overflow in container */
+      object-fit: contain; /* key property to preserve full frame */
       border: 2px solid #ccc;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+  }
 
     h1 {
       margin-bottom: 1rem;
