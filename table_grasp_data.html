@@ -68,16 +68,23 @@
         <div class="swiper-pagination"></div>
     </div>
 
-
+  <!-- Swiper JS bundle -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-      var swiper1 = new Swiper(".mySwiper1", {
-          slidesPerView: 1,
-          spaceBetween: 10,
-          navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-          pagination: { el: ".swiper-pagination", clickable: true },
-      });
-    </script>   
+  <!-- Swiper initialization script -->
+  <script>
+    var swiper1 = new Swiper(".mySwiper1", {
+      slidesPerView: 1, // Number of slides visible at once
+      spaceBetween: 10, // Space between slides in px
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+    });
+  </script>
 
 </body>
 </html>
