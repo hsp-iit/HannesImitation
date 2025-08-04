@@ -8,16 +8,13 @@ The learned policy is deployed on the Hannes prosthetic hand, enabling control o
 - _HannesImitationDataset_: A novel dataset for imitation learning with the Hannes prosthetic hand for grasping on unstructured scenarios.
 
 ### 🛠️ Installation
-To set up the environment and dependencies, please follow the installation instructions provided in the Diffusion Policy repository: [https://github.com/real-stanford/diffusion_policy](https://github.com/real-stanford/diffusion_policy).
+The _HannesImitation_ project builds on top of Diffusion Policy. To set up the environment and dependencies, please follow the installation instructions provided in the Diffusion Policy repository: [https://github.com/real-stanford/diffusion_policy](https://github.com/real-stanford/diffusion_policy).
 
-The _HannesImitation_ project builds on top of that setup.
+### 📚 Reading
+📄 Preprint available on *arXiv*: [https://arxiv.org/abs/2508.00491](https://arxiv.org/abs/2508.00491).
 
 ### 📂 Dataset
-The HannesImitationDataset is available at: [https:...](TODO)
-
-
-### 📚 Learn more
-📄 Preprint available on *arXiv*: [https://arxiv.org/abs/2508.00491](https://arxiv.org/abs/2508.00491).
+The HannesImitationDataset is available at: [https://github.com/hsp-iit/HannesImitation](TODO)
 
 ### 🤝 Citation
 If you found this useful, you could cite the article as follows:
@@ -34,4 +31,4 @@ If you found this useful, you could cite the article as follows:
 ```
 
 ### 📬 Contacts
-If you have any questions, please feel free to contact [Carlo Alessi](https://hsp.iit.it/people-details/-/people/carlo-alessi).
+If you have any questions, feel free to contact [Carlo Alessi](https://hsp.iit.it/people-details/-/people/carlo-alessi).
