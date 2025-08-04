@@ -1,7 +1,6 @@
 # HannesImitation: Grasping with the Hannes Prosthetic Hand via Imitation Learning
 
-![hannes_imitation_overview](https://github.com/user-attachments/assets/129ccc56-b621-445a-94e4-49a057a1e9f3)
-
+<img src="https://github.com/user-attachments/assets/129ccc56-b621-445a-94e4-49a057a1e9f3" width="500">
 
 _HannesImitation_ is an imitation learning-based approach that trains a single grasping policy across diverse objects and environments. 
 The learned policy is deployed on the Hannes prosthetic hand, enabling control of wrist orientation and hand closure. The main contributions are
@@ -18,7 +17,7 @@ The HannesImitationDataset is available at: [https:...](TODO)
 
 
 ### 📚 Learn more
-📄 Preprint available on *arXiv*: [https://arxiv.org/abs/your-arxiv-id](https://arxiv.org/abs/your-arxiv-id).
+📄 Preprint available on *arXiv*: [https://arxiv.org/abs/2508.00491](https://arxiv.org/abs/2508.00491).
 
 ### 🤝 Citation
 If you found this useful, you could cite the article as follows:
