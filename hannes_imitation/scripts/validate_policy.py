@@ -29,19 +29,19 @@ from hannes_imitation.common.data_utils import resize_image
 
 def create_observation_dictionaries(episode, observation_horizon):
     # TODO: maybe also for actions
-    frames = episode['image_in_hand']
+    frames = episode['image_in_hand'] # (Time, H, W, C)
     mes_hand = episode['mes_hand']
     mes_wrist_FE = episode['mes_wrist_FE']
     actions_gt = np.concatenate((episode['ref_move_hand'], episode['ref_move_wrist_FE'], episode['ref_move_wrist_PS']), axis=1)
 
     # create observation dictionaries
     # NOTE: unfold creates the new dimensions as last; then we move it in second position
-    frames = torch.from_numpy(frames).unfold(dimension=0, size=observation_horizon, step=1).moveaxis(source=-1, destination=1) # (Time, To, H, W, C)
-    mes_hand = torch.from_numpy(mes_hand).unfold(dimension=0, size=observation_horizon, step=1).moveaxis(source=-1, destination=1) # (Time, To, 1)
-    mes_wrist_FE = torch.from_numpy(mes_wrist_FE).unfold(dimension=0, size=observation_horizon, step=1).moveaxis(source=-1, destination=1) # (Time, To, 1)
+    frames = torch.from_numpy(frames).unfold(dimension=0, size=observation_horizon, step=1).moveaxis(source=-1, destination=1) # (Time-1, To, H, W, C)
+    mes_hand = torch.from_numpy(mes_hand).unfold(dimension=0, size=observation_horizon, step=1).moveaxis(source=-1, destination=1) # (Time-1, To, 1)
+    mes_wrist_FE = torch.from_numpy(mes_wrist_FE).unfold(dimension=0, size=observation_horizon, step=1).moveaxis(source=-1, destination=1) # (Time-1, To, 1)
 
     # only for frames move C before H, W and scale to 0-1. (other preprocessing done inside the policy)
-    frames = frames.moveaxis(source=-1, destination=-3) # (Time, To, C, H, W)
+    frames = frames.moveaxis(source=-1, destination=-3) # (Time-1, To, C, H, W)
     frames = frames.float() / 255.0
     mes_hand = mes_hand.float()
     mes_wrist_FE = mes_wrist_FE.float()
@@ -87,6 +87,8 @@ def compute_episode_errors_per_horizon(gt_actions, pred_actions, observation_hor
     A_hat = pred_actions[:last_index, h]
 
     # for the ground truth, you skip the first observation_horizon-1 samples (because here we don't do padding), and select the right horizon.
+    # for training the action at index 0 is used because the observations at time t=-1, etc are prepended.
+    # Here the first observation comprises samples at time t=0 and t=1.
     A = gt_actions[observation_horizon-1+h:]
 
     errors = A - A_hat # (T,3)
@@ -116,7 +118,7 @@ if __name__ == '__main__':
     vl_episode_indeces = [i for i, mask in enumerate(validation_dataset.train_mask) if mask]
 
     tr_labels = [train_dataset.labels[i] for i in tr_episode_indeces]
-    vl_labels = [train_dataset.labels[i] for i in vl_episode_indeces]
+    vl_labels = [train_dataset.labels[i] for i in vl_episode_indeces] # the label has metadata e.g., {'clutter': 'no', 'object': 'flat-head screwdriver', 'scenario': 'table', 'task': 'grasp'}
 
     # load model
     policy_path = '/home/calessi-iit.local/Projects/hannes-imitation/trainings/policy_1_4_7_2025_2_19-21_10_9.pth' # iros2025
@@ -131,17 +133,18 @@ if __name__ == '__main__':
     results_dicts = []
 
     for i, ep_idx in enumerate(tqdm(vl_episode_indeces)):
-        episode = train_dataset.replay_buffer.get_episode(ep_idx)
-        action_sequences, actions_gt = evaluate_policy_on_episode(policy, episode, observation_horizon=policy.n_obs_steps) # {'executed', 'predicted'}
-
-        executed_actions = np.array(action_sequences['executed'])
-        errors = compute_episode_errors_per_horizon(actions_gt, pred_actions=executed_actions, observation_horizon=observation_horizon, h=0)
-
-        # append results
         results_dicts.append(vl_labels[i])
-        results_dicts[-1]['errors'] = errors
+        episode = train_dataset.replay_buffer.get_episode(ep_idx)
+        
+        action_sequences, actions_gt = evaluate_policy_on_episode(policy, episode, observation_horizon=policy.n_obs_steps) # {'executed', 'predicted'}
+        executed_actions = np.array(action_sequences['executed'])
+        
+        # append results        
+        for j in range(action_horizon):
+            errors = compute_episode_errors_per_horizon(actions_gt, pred_actions=executed_actions, observation_horizon=observation_horizon, h=j) # h=0
+            results_dicts[-1]['errors_%d' % j] = errors
 
+    validation_results_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/validation/validation_set_results.npz'
+    np.savez(validation_results_path, **{f'dict_{i}': d for i, d in enumerate(results_dicts)})
 
-    np.savez('/home/calessi-iit.local/Projects/hannes-imitation/data/validation/validation_set_results.npz', **{f'dict_{i}': d for i, d in enumerate(results_dicts)})
-
-    print("Validation results saved at %s" % '/home/calessi-iit.local/Projects/hannes-imitation/data/validation/validation_set_results.npz')
+    print("Validation results saved at %s" % validation_results_path)
