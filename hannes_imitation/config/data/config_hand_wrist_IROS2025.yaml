@@ -1,0 +1,32 @@
+# config.yaml
+
+directory:
+  # input directory containing all the episodes in different files
+  source: 
+    - '/home/calessi-iit.local/Projects/hannes-imitation/data/training/HannesImitation/1_grasp-ycb-table/'
+    - '/home/calessi-iit.local/Projects/hannes-imitation/data/training/HannesImitation/4_grasp-ycb-shelf/'
+    - '/home/calessi-iit.local/Projects/hannes-imitation/data/training/HannesImitation/7_handover-15ycb-clutter/'
+
+  # output directory containing the merged episodes
+  #destination: '/home/calessi-iit.local/Projects/hannes-imitation/data/mustard_hand_wrist_FE/'
+  destination: '/home/calessi-iit.local/Projects/hannes-imitation/data/training/'
+  # output filename of the merged episodes
+  merged_name: 'merged_1_4_7.zarr' 
+
+scaling_factor: 0.2 # scaling factor of images
+
+# this is to instantiate a dictionary containing the merged episodes.
+# the dictionary will be filled inside merge_demonstration.py
+# 'data' contains both observations and actions.
+# 'meta' must contain the array indicating episode ends.
+merged_data:
+    'data': 
+      'image_in_hand': [] 
+      'ref_move_hand': []
+      'ref_move_wrist_FE': []
+      'ref_move_wrist_PS': []
+      'mes_hand': []
+      'mes_wrist_FE': []
+    'meta':
+      'episode_ends': []
+      #'label': []
