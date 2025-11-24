@@ -8,6 +8,26 @@ The learned policy is deployed on the Hannes prosthetic hand, enabling control o
 - _HannesImitationDataset_: A novel dataset for imitation learning with the Hannes prosthetic hand for grasping on unstructured scenarios.
 
 ### 🛠️ Installation
+From the terminal, clone this repository with the following command. This repository uses Diffusion Policy as a submodule stored in `hannes_imitation/external/diffusion_policy`. This command also fetches the source code of all the submodules.
+
+```
+git clone --recurse-submodules https://github.com/hsp-iit/HannesImitation.git
+cd HannesImitation
+```
+
+If you did a normal clone:
+
+```
+git clone https://github.com/hsp-iit/HannesImitation.git
+cd HannesImitation
+```
+
+Git does not clone the source code of the submodules in you local directory by default. If you also want to fetch the source code of the submodules, then do
+
+```
+git submodule update --init --recursive
+```
+
 The _HannesImitation_ project builds on top of Diffusion Policy. To set up the environment and dependencies, please follow the installation instructions provided in the Diffusion Policy repository: [https://github.com/real-stanford/diffusion_policy](https://github.com/real-stanford/diffusion_policy).
 
 ### 📚 Reading
