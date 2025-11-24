@@ -73,6 +73,7 @@ ep_idx = np.random.choice(vl_episode_indeces)
 episode = train_dataset.replay_buffer.get_episode(ep_idx)
 obs_dictionaries, actions_gt = create_observation_dictionaries(episode, observation_horizon=policy.n_obs_steps)
 
+print("======== warm up ============")
 with torch.no_grad():
     for i in range(10):
         # predict action trajectory
@@ -86,7 +87,7 @@ ep_idx = np.random.choice(vl_episode_indeces)
 episode = train_dataset.replay_buffer.get_episode(ep_idx)
 inference_times = get_policy_inference_times(policy, episode)
 
-print("====================")
+print("======= test =============")
 print("Diffusion iterations:", policy.num_inference_steps) # policy.noise_scheduler.num_train_timesteps)
 print("N. prediction samples: %d" % len(inference_times))
 print("Policy inference time: %.3f +- %.5f s" % (np.mean(inference_times), np.std(inference_times)))
