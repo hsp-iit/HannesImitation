@@ -25,23 +25,18 @@ from hannes_imitation.common import plot_utils
 # diffusers import
 from diffusers.schedulers.scheduling_ddpm import DDPMScheduler
 
-#zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged-grasp-ycb-table.zarr'
-#zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged_collections_1_4.zarr'
-#zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged_collections_1_3_4_6.zarr'
-#zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged_collections_1-8.zarr'
 zarr_path = '/home/calessi-iit.local/Projects/hannes-imitation/data/training/merged_1_4_7.zarr' # NOTE: IROS 2025
 keys = ['image_in_hand', 'ref_move_hand', 'ref_move_wrist_FE', 'ref_move_wrist_PS', 'mes_hand', 'mes_wrist_FE']
 val_ratio = 0.2 #0.25
 seed = 72
 max_train_episodes = None
-horizon = 8 # default 16 # prediction horizon
+horizon = 16 # default 16 # prediction horizon (default 16) (iros 8)
 observation_horizon = 2 # default 2
-action_horizon = 4 # default 8
+action_horizon = 4 # default 8 (default 8) (iros 4)
 pad_before = observation_horizon - 1
 pad_after = action_horizon - 1
 
 # training and validation dataset
-#train_dataset = HannesImageDataset(zarr_path, keys, horizon=horizon, pad_before=pad_before, pad_after=pad_after, seed=seed, val_ratio=val_ratio, max_train_episodes=None)
 train_dataset = HannesImageDatasetWrist(zarr_path, keys, obs_horizon=observation_horizon, horizon=horizon, pad_before=pad_before, pad_after=pad_after, seed=seed, val_ratio=val_ratio, max_train_episodes=None)
 validation_dataset = train_dataset.get_validation_dataset()
 
@@ -69,12 +64,12 @@ print("Action:")
 print(batch['action'].shape, batch['action'].dtype)
 print("=======================")
 
-# Create shape_meta
+# Create shape_meta.
+# Make sure that `shape_meta` correspond to input and output shapes for your task.
 item = train_dataset.__getitem__(0)
 _, C, H, W = item['obs']['image_in_hand'].shape
 _, action_dim = item['action'].shape
 
-# Make sure that `shape_meta` correspond to input and output shapes for your task.
 shape_meta = dict(obs=dict(), action=dict())
 shape_meta['obs']['image_in_hand'] = dict(shape=(C, H, W), type='rgb')
 shape_meta['obs']['mes_hand'] = dict(shape=[1], type='low_dim')
@@ -82,12 +77,11 @@ shape_meta['obs']['mes_wrist_FE'] = dict(shape=[1], type='low_dim')
 shape_meta['action'] = dict(shape=[action_dim])
 
 # Create observation encoder
-rgb_model = get_resnet('resnet18') # dict()
+rgb_model = get_resnet(name="resnet18", weights="IMAGENET1K_V1") # dict()
 
 # The MultiImageObsEncoder encodes image and low dimensional observations into a single observation.
 # The constructor requires 2 positional arguments (shape_meta, rgb_model).
 # rgb_model can be directly an nn.Module or a Dict[str,nn.Module]
-
 # Optionally, you can specify if the image is resized (`resize_shape`) and/or cropped (`crop_shape`, `random_crop`) and/or
 # normalized according to imagenet values (`imagenet_norm`)
 # These transformations are performed in the forward() method.
@@ -100,11 +94,11 @@ observation_encoder = MultiImageObsEncoder(shape_meta=shape_meta, rgb_model=rgb_
                                        share_rgb_model=True,
                                        imagenet_norm=True)
 
-# freeze observation_encoder
 _ = observation_encoder.eval()
 
+
 # Create noise scheduler
-# for this demo, we use DDPMScheduler with 100 diffusion iterations
+# for this demo, we use DDPMScheduler (default, iros) with 100 diffusion iterations
 # NOTE: the choice of beta schedule has big impact on performance. We found squared cosine works the best
 num_diffusion_iters = 10 # default 100 
 noise_scheduler = DDPMScheduler(num_train_timesteps=num_diffusion_iters,
@@ -129,9 +123,9 @@ policy = DiffusionUnetImagePolicy(shape_meta=shape_meta,
                                   horizon=horizon,
                                   n_action_steps=action_horizon,
                                   n_obs_steps=observation_horizon,
-                                  diffusion_step_embed_dim=32,#64, #128,#256 default,
-                                  down_dims=[32, 64], # [16, 32, 64])#(256,512,1024)) default
-                                  kernel_size=3, # default 5
+                                  diffusion_step_embed_dim=32, # (iros 32) (default 256)
+                                  down_dims=(32, 64), # (iros [32, 64]) (default [256,512,1024])
+                                  kernel_size=3, # default 5 (iros 3)
                                   n_groups=8, # default 8
                                   cond_predict_scale=True) # default True 
 
