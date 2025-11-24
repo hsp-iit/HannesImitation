@@ -17,18 +17,17 @@ Preprint available on *arXiv*: [https://arxiv.org/abs/2508.00491](https://arxiv.
 The HannesImitationDataset is available on HuggingFace at: [https://huggingface.co/datasets/HSP-IIT/HannesImitation](https://huggingface.co/datasets/HSP-IIT/HannesImitation)
 
 ### 🤝 Citation
-If you found this useful, you could cite the article as follows:
 
 ```bibtex
-@inproceedings{...,
+@inproceedings{alessi2025hannesimitation,
   title={HannesImitation: Grasping with the Hannes Prosthetic Hand via Imitation Learning},
-  author={...},
-  booktitle={...},
-  pages={...},
-  year={...},
-  organization={...}
+  author={Alessi, Carlo and Vasile, Federico and Ceola, Federico and Pasquale, Giulia and Boccardo, Nicol{`o} and Natale, Lorenzo},
+  booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year={2025},
+  pages={},
+  organization={}
 }
 ```
 
 ### 📬 Contacts
-If you have any questions, feel free to contact [Carlo Alessi](https://hsp.iit.it/people-details/-/people/carlo-alessi).
+For any query feel free to contact [Carlo Alessi](https://hsp.iit.it/people-details/-/people/carlo-alessi).
