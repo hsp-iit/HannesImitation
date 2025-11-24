@@ -11,10 +11,10 @@ The learned policy is deployed on the Hannes prosthetic hand, enabling control o
 The _HannesImitation_ project builds on top of Diffusion Policy. To set up the environment and dependencies, please follow the installation instructions provided in the Diffusion Policy repository: [https://github.com/real-stanford/diffusion_policy](https://github.com/real-stanford/diffusion_policy).
 
 ### 📚 Reading
-📄 Preprint available on *arXiv*: [https://arxiv.org/abs/2508.00491](https://arxiv.org/abs/2508.00491).
+Preprint available on *arXiv*: [https://arxiv.org/abs/2508.00491](https://arxiv.org/abs/2508.00491).
 
 ### 📂 Dataset
-The HannesImitationDataset is available at: [https://github.com/hsp-iit/HannesImitation](TODO)
+The HannesImitationDataset is available on HuggingFace at: [https://huggingface.co/datasets/HSP-IIT/HannesImitation](https://huggingface.co/datasets/HSP-IIT/HannesImitation)
 
 ### 🤝 Citation
 If you found this useful, you could cite the article as follows:
