@@ -2,7 +2,7 @@ bin
 logs
 wandb
 outputs
-data
+/data/
 data_local
 .vscode
 _wandb
